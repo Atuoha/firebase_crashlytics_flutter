@@ -1,3 +1,4 @@
+import 'package:firebase_crashlytics_flutter/presentation/analytics_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -36,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 15),
             ElevatedButton(
-              onPressed: ()=> throw Exception(),
+              onPressed: () => throw Exception(),
               child: const Text('Throw Exception'),
             ),
             const SizedBox(height: 10),
@@ -44,10 +45,20 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () => const FormatException('An error occurred'),
               child: const Text('Throw Exception with Feedback'),
             ),
+            const SizedBox(height: 15),
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const AnalyticsScreen(),
+                ),
+              ),
+              child: const Text('Firebase Analytics'),
+            ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        key: const Key('INCREMENT'),
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),

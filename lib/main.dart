@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_crashlytics_flutter/services/analytics_service/analytics_service.dart';
 
 import 'firebase_options.dart';
 import 'presentation/main_screen.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      navigatorObservers: <NavigatorObserver>[AnalyticsService.getAnalyticsObserver()],
       home: const HomeScreen(),
     );
   }
