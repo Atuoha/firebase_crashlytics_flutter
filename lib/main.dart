@@ -26,7 +26,7 @@ void main() async {
     return true;
   };
 
-  await FirebaseMsgRepo().initApp();
+  await FirebaseMsgRepo().initNotifications();
 
   runApp(const MyApp());
 }
