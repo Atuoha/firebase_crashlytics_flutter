@@ -1,3 +1,4 @@
+import 'package:firebase_crashlytics_flutter/presentation/messaging/messaging.dart';
 import 'package:flutter/material.dart';
 
 import '../services/analytics_service/analytics_service.dart';
@@ -68,48 +69,60 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                   ),
                 ],
               ),
+            ),
+            const SizedBox(height: 10),
+            Directionality(
+              textDirection: TextDirection.ltr,
+              child: ElevatedButton.icon(
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const FirebaseMessagingScreen(),
+                  ),
+                ),
+                label: const Text('Messaging'),
+                icon: Icon(Icons.sms_outlined),
+              ),
             )
           ],
         ),
       ),
-      floatingActionButton:  Column(
+      floatingActionButton: Column(
         mainAxisSize: MainAxisSize.min,
-          children: [
-            FloatingActionButton(
-              heroTag: "save",
-              key: const Key('save'),
-              onPressed: () async {
-                await AnalyticsService.analytics.logEvent(
-                  name: 'number_of_saves',
-                  parameters: {
-                    'data': saveCount,
-                  },
-                );
-                setState(() {
-                  saveCount++;
-                });
-              },
-              child: const Icon(Icons.save),
-            ),
-            const SizedBox(height: 10),
-            FloatingActionButton(
-              heroTag: "download",
-              key: const Key('download'),
-              onPressed: () async {
-                await AnalyticsService.analytics.logEvent(
-                  name: 'number_of_downloads',
-                  parameters: {
-                    'data': downloadCount,
-                  },
-                );
-                setState(() {
-                  downloadCount++;
-                });
-              },
-              child: const Icon(Icons.download),
-            ),
-          ],
-
+        children: [
+          FloatingActionButton(
+            heroTag: "save",
+            key: const Key('save'),
+            onPressed: () async {
+              await AnalyticsService.analytics.logEvent(
+                name: 'number_of_saves',
+                parameters: {
+                  'data': saveCount,
+                },
+              );
+              setState(() {
+                saveCount++;
+              });
+            },
+            child: const Icon(Icons.save),
+          ),
+          const SizedBox(height: 10),
+          FloatingActionButton(
+            heroTag: "download",
+            key: const Key('download'),
+            onPressed: () async {
+              await AnalyticsService.analytics.logEvent(
+                name: 'number_of_downloads',
+                parameters: {
+                  'data': downloadCount,
+                },
+              );
+              setState(() {
+                downloadCount++;
+              });
+            },
+            child: const Icon(Icons.download),
+          ),
+        ],
       ),
     );
   }
