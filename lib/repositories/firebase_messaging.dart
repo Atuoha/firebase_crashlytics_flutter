@@ -29,7 +29,7 @@ void handleMessage(RemoteMessage? message) {
 
   // Navigate to NotificationScreen with the received message
   navigationKey.currentState!.pushNamed(
-    NotificationScreen.route,
+    NotificationScreen.routeName,
     arguments: message,
   );
 }

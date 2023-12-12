@@ -1,4 +1,5 @@
 import 'package:firebase_crashlytics_flutter/presentation/analytics_screen.dart';
+import 'package:firebase_crashlytics_flutter/presentation/messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -53,6 +54,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               child: const Text('Firebase Analytics'),
+            ),
+            const SizedBox(height: 15),
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const FirebaseMessagingScreen(),
+                ),
+              ),
+              child: const Text('Firebase Messaging'),
             ),
           ],
         ),

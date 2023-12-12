@@ -1,4 +1,4 @@
-import 'package:firebase_crashlytics_flutter/presentation/messaging/messaging.dart';
+import 'package:firebase_crashlytics_flutter/presentation/messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 import '../services/analytics_service/analytics_service.dart';
@@ -80,7 +80,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                   ),
                 ),
                 label: const Text('Messaging'),
-                icon: Icon(Icons.sms_outlined),
+                icon: const Icon(Icons.sms_outlined),
               ),
             )
           ],
