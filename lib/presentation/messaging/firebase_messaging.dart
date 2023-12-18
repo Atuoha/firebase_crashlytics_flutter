@@ -92,6 +92,7 @@ class _FirebaseMessagingScreenState extends State<FirebaseMessagingScreen> {
       print(
           'Title: ${remoteMessage.notification!.title}, Body: ${remoteMessage.notification!.body}');
 
+      // style info from local notification plugin
       BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
         remoteMessage.notification!.body.toString(),
         htmlFormatBigText: true,
@@ -99,19 +100,40 @@ class _FirebaseMessagingScreenState extends State<FirebaseMessagingScreen> {
         htmlFormatContentTitle: true,
       );
 
-      AndroidNotificationDetails androidNotificationDetails =
-          AndroidNotificationDetails(
-        'msg',
-        'msg',
-        importance: Importance.max,
-        styleInformation: bigTextStyleInformation,
-        priority: Priority.max,
-        playSound: false,
+      // Android notification channel for high-importance notifications
+      const _androidChannel = AndroidNotificationChannel(
+        'high_importance_channel',
+        'High Important Notification',
+        description: 'This channel is used for important notifications',
+        importance: Importance.defaultImportance,
       );
 
-      NotificationDetails notificationDetails =
-          NotificationDetails(android: androidNotificationDetails);
+      // android notification details
+      AndroidNotificationDetails androidNotificationDetails =
+          AndroidNotificationDetails(
+        _androidChannel.id,
+        _androidChannel.name,
+        importance: Importance.high,
+        styleInformation: bigTextStyleInformation,
+        priority: Priority.high,
+        playSound: true,
+      );
 
+      // darwin notification details
+      DarwinNotificationDetails darwinNotificationDetails =
+          const DarwinNotificationDetails(
+        presentAlert: true,
+        presentBadge: true,
+        presentBanner: true,
+        presentList: true,
+        presentSound: true,
+      );
+
+      // notification details
+      NotificationDetails notificationDetails = NotificationDetails(
+          android: androidNotificationDetails, iOS: darwinNotificationDetails);
+
+      // show
       await _localNotifications.show(
         0,
         remoteMessage.notification!.title,
