@@ -5,6 +5,7 @@ import 'package:firebase_crashlytics_flutter/presentation/messaging/firebase_mes
 import 'package:firebase_crashlytics_flutter/presentation/messaging/notification_screen.dart';
 import 'package:firebase_crashlytics_flutter/repositories/firebase_messaging.dart';
 import 'package:firebase_crashlytics_flutter/services/analytics_service/analytics_service.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'firebase_options.dart';
 import 'presentation/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,11 @@ void main() async {
     return true;
   };
 
-  await FirebaseMsgRepo().initNotifications();
+  // uncomment for the first fb messaging [first messaging]
+  // await FirebaseMsgRepo().initNotifications();
+
+  // second fb messaging
+  await FirebaseMessaging.instance.getInitialMessage();
 
   runApp(const MyApp());
 }
