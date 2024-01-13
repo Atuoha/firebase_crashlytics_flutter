@@ -73,9 +73,18 @@ class _FirebaseMessagingScreenState extends State<FirebaseMessagingScreen> {
     var initializationSettings = InitializationSettings(
         android: androidInitialization, iOS: iosInitialization);
 
+    // Set foreground notification presentation options
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+
     _localNotifications.initialize(initializationSettings,
-        onDidReceiveBackgroundNotificationResponse:
-            (NotificationResponse notificationResponse) async {
+        onDidReceiveBackgroundNotificationResponse: (
+      NotificationResponse notificationResponse,
+    ) async {
       final String? payload = notificationResponse.payload;
       try {
         if (payload != null && payload.isNotEmpty) {
@@ -89,8 +98,11 @@ class _FirebaseMessagingScreenState extends State<FirebaseMessagingScreen> {
     });
 
     FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) async {
+      print('--------Incoming message--------');
       print(
           'Title: ${remoteMessage.notification!.title}, Body: ${remoteMessage.notification!.body}');
+
+      // FirebaseMessaging.onBackgroundMessage((message) => null);
 
       // style info from local notification plugin
       BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
